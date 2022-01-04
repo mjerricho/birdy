@@ -1,0 +1,72 @@
+/* CSS HEX */
+:root {
+    --onyx: #393e41ff;
+    --timberwolf: #d3d0cbff;
+    --platinum: #e7e5dfff;
+    --maximum-blue-green: #43b8baff;
+    --saffron: #e6b93cff;
+}
+
+.sidebar { 
+    display: flex;
+    flex-direction: column;
+    flex: 0.35;
+    border-right: 1px solid var(--onyx);
+}
+
+.sidebar__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.sidebar__headerRight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar__headerRight > .MuiIconButton-root {
+    margin-right: 2vw;
+    font-size: 24px !important;
+}
+
+.sidebar__search {
+    display: flex;
+    align-items: center;
+    background-color: var(--platinum);
+    height: 40px;
+    padding: 10px 0 10px 0;
+}
+
+.sidebar__searchContainer {
+    display: flex;
+    align-items: center;
+    background-color: white; 
+    width: 100%;
+    height: 35px;
+}
+
+.sidebar__searchContainer > .MuiSvgIcon-root {
+    color: gray;
+    padding: 10px;
+}
+
+.sidebar__searchContainer > .MuiSvgIcon-root:hover {
+    color: var(--maximum-blue-green)
+}
+
+.sidebar__searchContainer > input {
+    border: none;
+    margin-left: 10px;
+}
+
+.sidebar__searchContainer > input:focus {
+    outline: none;
+}
+
+.sidebar__chats {
+    flex: 1;
+    background-color: var(--timberwolf);
+    overflow: scroll;
+}
