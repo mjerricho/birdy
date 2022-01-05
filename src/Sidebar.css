@@ -18,6 +18,10 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    background-color: var(--maximum-blue-green);
+    height: 45px;
+    align-items: center;
+
 }
 
 .sidebar__headerRight {
@@ -29,6 +33,7 @@
 .sidebar__headerRight > .MuiIconButton-root {
     margin-right: 2vw;
     font-size: 24px !important;
+    color: var(--platinum);
 }
 
 .sidebar__search {

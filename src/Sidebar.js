@@ -8,13 +8,24 @@ import "./Sidebar.css";
 import SidebarChat from './SidebarChat';
 
 function Sidebar() {
+
+    const createChat = () => {
+        console.log("new chat added")
+        const roomName = prompt("Please enter room name chat");
+
+        if (roomName) {
+            //do something if user enters room name
+            console.log(roomName)
+        }
+    };
+
     return (
         <div className='sidebar'>
             <div className='sidebar__header'>
-                <Avatar />
+                <Avatar src='https://avatars.dicebear.com/api/human/123.svg'/>
                 <div className='sidebar__headerRight'>
                     <IconButton>
-                        <Add />
+                        <Add onClick={createChat}/>
                     </IconButton>
                 </div>
             </div>

@@ -13,6 +13,10 @@
     border-bottom: 2px solid var(--maximum-blue-green);
 }
 
+.sidebarChat > .MuiAvatar-root {
+    background-color: var(--platinum);
+}
+
 .sidebarChat:hover {
     background-color: var(--saffron);
 }
