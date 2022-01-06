@@ -24,17 +24,36 @@ function Chat() {
                     <IconButton>
                         <SearchOutlined/>
                     </IconButton>
-                    
                 </div>
             </div>
 
             <div className='chat__body'>
-                <div className='chat__message'>
-
-                </div>
+                <p className={`chat__message ${true && 'chat__receiver'}`}>
+                    <span className='chat__name'>Name</span>
+                    Hello
+                    <span className='chat__timestamp'>12:00pm</span>
+                </p>
+                <p className='chat__message'>
+                    <span className='chat__name'>Name</span>
+                    Hello
+                    <span className='chat__timestamp'>12:00pm</span>
+                </p>
+                <p className='chat__message'>
+                    <span className='chat__name'>Name</span>
+                    Hello
+                    <span className='chat__timestamp'>12:00pm</span>
+                </p>
                 <div className='chat__send'>
                     
                 </div>
+            </div>
+
+            <div className='chat__footer'>
+                <form>
+                    <input type="text"/>
+                    <button>Send a message</button>
+                </form>
+
             </div>
         </div>
     )
