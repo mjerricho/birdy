@@ -44,7 +44,7 @@
 
 .chat__message {
     position: relative;
-    font-size: 16px;
+    font-size: 1em;
     color: black;
     padding: 10px;
     border-radius: 10px;
@@ -68,4 +68,33 @@
 .chat__timestamp {
     margin-left: 10px;
     font-size: xx-small;
+}
+
+.chat__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid var(--maximum-blue-green);
+    padding: 15px;
+}
+
+.chat__footer > form {
+    flex: 1;
+    display: flex;
+    font-size: 1em;
+}
+
+.chat__footer > form > input {
+    flex: 1;
+    border-radius: 20px;
+    border: none;
+    padding: 5px;
+}
+
+.chat__footer > form > input:focus {
+    outline: none;
+}
+
+.chat__footer > form > button {
+    display: none;
 }

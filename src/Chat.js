@@ -5,24 +5,30 @@ import { SearchOutlined } from '@mui/icons-material';
 import './Chat.css';
 
 function Chat() {
-
+    const [input, setInput] = useState('');
     const [seed, setSeed] = useState('');
 
     useEffect(() => {
         setSeed(Math.floor(Math.random() * 5000));
     }, [])
 
+    const sendMessage = (e) => { 
+        e.preventDefault();
+        console.log("You typed >>>", input);
+        setInput('');
+    };
+
     return (
         <div className='chat'>
             <div className='chat__header'>
-                <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
+                <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
                 <div className='chat__headerInfo'>
                     <h3>Room Name</h3>
                     <p>Last seen at...</p>
                 </div>
                 <div className='chat__headerRight'>
                     <IconButton>
-                        <SearchOutlined/>
+                        <SearchOutlined />
                     </IconButton>
                 </div>
             </div>
@@ -44,14 +50,19 @@ function Chat() {
                     <span className='chat__timestamp'>12:00pm</span>
                 </p>
                 <div className='chat__send'>
-                    
+
                 </div>
             </div>
 
             <div className='chat__footer'>
-                <form>
-                    <input type="text"/>
-                    <button>Send a message</button>
+                <form onSubmit={sendMessage}>
+                    <input
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        type="text"
+                        placeholder='Type message'
+                    />
+                    <button type="submit">Send a message</button>
                 </form>
 
             </div>

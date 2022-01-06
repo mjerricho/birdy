@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
@@ -6,8 +6,22 @@ import { SearchOutlined } from '@mui/icons-material';
 
 import "./Sidebar.css";
 import SidebarChat from './SidebarChat';
+// import db from './firebase';
 
 function Sidebar() {
+
+    // const [rooms, setRooms] = useState([]);
+
+    // run it only once when the component sidebar loads, and once only. This reduces the computational power needed, hence faster process.
+    // useEffect(() => {
+    //     db.collection('rooms').onSnapshot((snapshot) => 
+    //         setRooms(snapshot.docs.map(doc => 
+    //             ({
+    //                 id: doc.id, 
+    //                 data: doc.data()
+    //             })))
+    //     )
+    // })
 
     const createChat = () => {
         console.log("new chat added")
@@ -24,8 +38,8 @@ function Sidebar() {
             <div className='sidebar__header'>
                 <Avatar src='https://avatars.dicebear.com/api/human/123.svg'/>
                 <div className='sidebar__headerRight'>
-                    <IconButton>
-                        <Add onClick={createChat}/>
+                    <IconButton onClick={createChat}>
+                        <Add/>
                     </IconButton>
                 </div>
             </div>
@@ -36,6 +50,9 @@ function Sidebar() {
                 </div>
             </div>
             <div className='sidebar__chats'>
+                {/* {rooms.map(room => (
+                    <sidebarChat key={room.id} id={room.id} name={room.data.name}
+                ))} */}
                 <SidebarChat />
                 <SidebarChat />
                 <SidebarChat />
