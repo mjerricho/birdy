@@ -21,9 +21,10 @@ function App() {
       ) : (
         <div className='app__body'>
           <Router>
+          <Sidebar />
             <Routes>
-              <Route path="/rooms/:roomId" element={<><Sidebar /><Chat /></>} />
-              <Route path="/" element={<div>test</div>} />
+              <Route path="/rooms/:roomId" element={<Chat />} />
+              <Route path="/" element={<Chat />} />
             </Routes>
           </Router>
         </div>

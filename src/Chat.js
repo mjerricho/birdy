@@ -3,32 +3,48 @@ import { Avatar, IconButton } from '@mui/material';
 import { SearchOutlined } from '@mui/icons-material';
 import { useParams } from 'react-router-dom';
 
-import { collection, doc, onSnapshot } from 'firebase/firestore';
+import { addDoc, collection, doc, onSnapshot, serverTimestamp, orderBy } from 'firebase/firestore';
 import db from "./firebase";
 
 import './Chat.css';
+import { useStateValue } from './StateProvider';
 
 function Chat() {
     const [input, setInput] = useState('');
-    // const [seed, setSeed] = useState('');
 
     // to get the id for the chat room from the react-router-dom
     const { roomId } = useParams();
     const [roomName, setRoomName] = useState('');
+    const [messages, setMessages] = useState([])
+    const [{ user }, dispatch] = useStateValue();
 
     useEffect(() => {
         if (roomId) {
-            onSnapshot(doc(collection(db, "rooms"), roomId), (snapshot) => setRoomName(snapshot.data().name))
+            const roomIdDoc = doc(collection(db, "rooms"), roomId);
+
+            // get the list of rooms
+            onSnapshot(roomIdDoc, (snapshot) =>
+                setRoomName(snapshot.data().name));
+
+            // get the messages in the room selected
+            // db.collection("rooms").doc(roomId).collection("messages").orderBy('timestamp', 'asc').onSnapshot(snapshot => {setMessages(snapshot)})
+            const messagesDoc = collection(roomIdDoc, 'messages')
+            // need to order everything
+            onSnapshot(messagesDoc, (snapshot) =>
+                setMessages(snapshot.docs.map(doc => doc.data()))
+            )
         }
     }, [roomId])
-
-    // useEffect(() => {
-    //     setSeed(Math.floor(Math.random() * 5000));
-    // }, [])
 
     const sendMessage = (e) => {
         e.preventDefault();
         console.log("You typed >>>", input);
+        const roomIdDoc = doc(collection(db, "rooms"), roomId);
+        addDoc(collection(roomIdDoc, 'messages'), {
+            message: input,
+            name: user.displayName,
+            timestamp: serverTimestamp()
+        })
         setInput('');
     };
 
@@ -38,7 +54,9 @@ function Chat() {
                 <Avatar src={`https://avatars.dicebear.com/api/human/${roomId}.svg`} />
                 <div className='chat__headerInfo'>
                     <h3>{roomName}</h3>
-                    <p>Last seen at...</p>
+                    <p>Last seen {" "} {new Date(
+                        messages[messages.length - 1]?.timestamp?.toDate()
+                    ).toUTCString()}</p>
                 </div>
                 <div className='chat__headerRight'>
                     <IconButton>
@@ -48,24 +66,16 @@ function Chat() {
             </div>
 
             <div className='chat__body'>
-                <p className={`chat__message ${true && 'chat__receiver'}`}>
-                    <span className='chat__name'>Name</span>
-                    Hello
-                    <span className='chat__timestamp'>12:00pm</span>
-                </p>
-                <p className='chat__message'>
-                    <span className='chat__name'>Name</span>
-                    Hello
-                    <span className='chat__timestamp'>12:00pm</span>
-                </p>
-                <p className='chat__message'>
-                    <span className='chat__name'>Name</span>
-                    Hello
-                    <span className='chat__timestamp'>12:00pm</span>
-                </p>
-                <div className='chat__send'>
-
-                </div>
+                {messages.map(message => (
+                    // need to change the condition for the message and user display name as names might be the same
+                    <p className={`chat__message ${message.name === user.displayName && 'chat__receiver'}`}>
+                        <span className='chat__name'>{message.name}</span>
+                        {message.message}
+                        <span className='chat__timestamp'>
+                            {new Date(message.timestamp?.toDate()).toUTCString()}
+                        </span>
+                    </p>
+                ))}
             </div>
 
             <div className='chat__footer'>

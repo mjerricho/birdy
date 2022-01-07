@@ -68,3 +68,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### To deploy with firebase
+run `npm ci && npm run build`
+then `firebase deploy`
+The link is at https://birdy-de2d0.web.app
+The Project Console is at https://console.firebase.google.com/project/birdy-de2d0/overview

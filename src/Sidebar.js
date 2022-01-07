@@ -6,17 +6,16 @@ import { SearchOutlined } from '@mui/icons-material';
 
 import "./Sidebar.css";
 import SidebarChat from './SidebarChat';
+import { useStateValue } from './StateProvider';
 
 // backend matters
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
-
 import db from "./firebase";
 
 function Sidebar() {
 
     const [rooms, setRooms] = useState([{ name: "Loading...", id: "initial" }]);
-
-    console.log(rooms);
+    const [{ user }, dispatch] = useStateValue();
 
     useEffect(() => {
         // getData() is to get data once
@@ -46,10 +45,16 @@ function Sidebar() {
         }
     };
 
+    const [seed, setSeed] = useState('');
+
+    useEffect(() => {
+        setSeed(Math.floor(Math.random() * 5000));
+    }, [])
+
     return (
         <div className='sidebar'>
             <div className='sidebar__header'>
-                <Avatar src='https://avatars.dicebear.com/api/human/123.svg' />
+                <Avatar src={user ? user.photoURL : `https://avatars.dicebear.com/api/human/${seed}.svg`} />
                 <div className='sidebar__headerRight'>
                     <IconButton onClick={createChat}>
                         <Add />

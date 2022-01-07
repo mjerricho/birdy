@@ -33,6 +33,7 @@
 
 .chat__headerInfo > p {
     color: rgb(97, 97, 97);
+    font-size: small;
 }
 
 .chat__body {

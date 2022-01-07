@@ -13,6 +13,11 @@
     border-bottom: 2px solid var(--maximum-blue-green);
 }
 
+a {
+    text-decoration: none !important;
+    color: black;
+}
+
 .sidebarChat > .MuiAvatar-root {
     background-color: var(--platinum);
 }
