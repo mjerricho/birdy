@@ -7,12 +7,12 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import { useState } from 'react';
-
+import { useStateValue } from './StateProvider';
 
 function App() {
 
-  const [user, setUser] = useState(null);
+  // use the StateValue instead to check if there is user
+  const[{ user }, dispatch] = useStateValue();
 
   return (
     <div className="app">
