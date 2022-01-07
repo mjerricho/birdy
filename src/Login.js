@@ -30,6 +30,7 @@ function Login() {
         <div className='login'>
             <div className='login__container'>
                 <div className='login__text'>
+                    <h1>Birdy</h1>
                     Please log in through Google
                 </div>
                 <Button type="submit" onClick={signIn}>

@@ -22,6 +22,12 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+.login__text > h1 {
+    color: white;
+    font-size: 5em;
+    margin-bottom: 50px;
+}
+
 .login__container >img {
     object-fit: contain;
     height: 100px;
