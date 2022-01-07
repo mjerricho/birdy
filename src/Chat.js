@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, IconButton } from '@mui/material';
 import { SearchOutlined } from '@mui/icons-material';
+import { useParams } from 'react-router-dom';
+
+import { collection, doc, onSnapshot } from 'firebase/firestore';
+import db from "./firebase";
 
 import './Chat.css';
 
 function Chat() {
     const [input, setInput] = useState('');
-    const [seed, setSeed] = useState('');
+    // const [seed, setSeed] = useState('');
+
+    // to get the id for the chat room from the react-router-dom
+    const { roomId } = useParams();
+    const [roomName, setRoomName] = useState('');
 
     useEffect(() => {
-        setSeed(Math.floor(Math.random() * 5000));
-    }, [])
+        if (roomId) {
+            onSnapshot(doc(collection(db, "rooms"), roomId), (snapshot) => setRoomName(snapshot.data().name))
+        }
+    }, [roomId])
 
-    const sendMessage = (e) => { 
+    // useEffect(() => {
+    //     setSeed(Math.floor(Math.random() * 5000));
+    // }, [])
+
+    const sendMessage = (e) => {
         e.preventDefault();
         console.log("You typed >>>", input);
         setInput('');
@@ -21,9 +35,9 @@ function Chat() {
     return (
         <div className='chat'>
             <div className='chat__header'>
-                <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
+                <Avatar src={`https://avatars.dicebear.com/api/human/${roomId}.svg`} />
                 <div className='chat__headerInfo'>
-                    <h3>Room Name</h3>
+                    <h3>{roomName}</h3>
                     <p>Last seen at...</p>
                 </div>
                 <div className='chat__headerRight'>
