@@ -8,9 +8,8 @@ import "./Sidebar.css";
 import SidebarChat from './SidebarChat';
 import { useStateValue } from './StateProvider';
 
-// backend matters
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import db from "./firebase";
+import { addDoc, collection, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
 
 function Sidebar() {
 
@@ -20,13 +19,13 @@ function Sidebar() {
     useEffect(() => {
         // getData() is to get data once
         // onSnapshot() is to listen for realtime updates -- return a function to that we can call to terminate listener
-        // no curly braces -> implicit return so it terminates the useEffect
-        const unsubscribe = onSnapshot(collection(db, "rooms"), (snapshot) =>
+        // Put rooms with the latest activity higher
+        const q = query(collection(db, "rooms"), orderBy("lastActivity", "desc"))
+        const unsubscribe = onSnapshot(q, (snapshot) =>
             setRooms(snapshot.docs.map((doc) => ({
                 ...doc.data(), id: doc.id
             })))
         )
-
         return () => {
             unsubscribe(); 
             // good practice to do as we only need to listen once
@@ -34,14 +33,14 @@ function Sidebar() {
     }, []);
 
     const createChat = () => {
-        console.log("new chat added")
+        // console.log("new chat added")
         const roomName = prompt("Please enter room name chat");
-
         if (roomName) {
             addDoc(collection(db, "rooms"), {
                 name: roomName,
+                lastActivity: serverTimestamp()
             })
-            console.log(roomName, " added");
+            // console.log(roomName, " added");
         }
     };
 

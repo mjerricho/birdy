@@ -8,7 +8,6 @@ import { useStateValue } from './StateProvider';
 import { actionTypes } from './reducer';
 
 function Login() {
-
     // dispatch is like a gun => shoot to the data layout
     const [{ }, dispatch] = useStateValue();
 
@@ -16,7 +15,7 @@ function Login() {
     const signIn = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
-                console.log(result) 
+                // console.log(result) 
                 dispatch({
                     type: actionTypes.SET_USER,
                     user: result.user

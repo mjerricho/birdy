@@ -9,7 +9,7 @@ export const actionTypes ={
 };
 
 const reducer =(state, action) => {
-    console.log("reducer", action);
+    // console.log("reducer", action);
     // listen to action just dispatched 
     switch (action.type) {
         case actionTypes.SET_USER:
