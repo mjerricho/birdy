@@ -71,6 +71,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### To deploy with firebase
 run `npm ci && npm run build`
-then `firebase deploy`
+then `firebase deploy --only hosting`
 The link is at https://birdy-de2d0.web.app
 The Project Console is at https://console.firebase.google.com/project/birdy-de2d0/overview
+
+### Tech used
+- React
+- Firebase Firestore Realtime db
+- Material UI
+- React Router
+- React Context API (Similar to REDUX)
+- Google Authentication
+- Deploy using Firebase

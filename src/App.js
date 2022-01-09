@@ -12,7 +12,7 @@ import { useStateValue } from './StateProvider';
 function App() {
 
   // use the StateValue instead to check if there is user
-  const[{ user }, dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
 
   return (
     <div className="app">
@@ -20,13 +20,13 @@ function App() {
         <Login />
       ) : (
         <div className='app__body'>
-          <Router>
-          <Sidebar />
-            <Routes>
-              <Route path="/rooms/:roomId" element={<Chat />} />
-              <Route path="/" element={<Chat />} />
-            </Routes>
-          </Router>
+            <Router>
+              <Sidebar />
+              <Routes>
+                <Route path="/rooms/:roomId" element={<Chat />} />
+                <Route path="/" element={<Chat />} />
+              </Routes>
+            </Router>
         </div>
       )}
     </div>
