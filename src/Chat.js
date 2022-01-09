@@ -14,7 +14,7 @@ function Chat() {
     const { roomId } = useParams();
     const [roomName, setRoomName] = useState('');
     const [messages, setMessages] = useState([])
-    const [{ user }, dispatch] = useStateValue();
+    const [{ user }] = useStateValue();
     const [input, setInput] = useState('');
 
     useEffect(() => {

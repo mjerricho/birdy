@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar } from '@mui/material';
-import { Add, Password } from '@mui/icons-material';
+import { Add } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { SearchOutlined } from '@mui/icons-material';
 
@@ -15,7 +15,7 @@ function Sidebar() {
 
     const [rooms, setRooms] = useState([{ name: "Loading...", id: "initial" }]);
     const [showAllChats, setShowAllChats] = useState(false)
-    const [{ user }, dispatch] = useStateValue();
+    const [{ user }] = useStateValue();
 
     useEffect(() => {
         // getData() is to get data once
@@ -47,7 +47,7 @@ function Sidebar() {
     };
 
     const searchChat = (searchInput) => {
-        if (searchInput != '') {
+        if (searchInput !== '') {
             const q = query(collection(db, "rooms"), where("name", "==", searchInput))
             onSnapshot(q, (snapshot) =>
                 setRooms(snapshot.docs.map((doc) => ({
