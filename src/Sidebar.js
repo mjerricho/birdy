@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar } from '@mui/material';
-import { Add } from '@mui/icons-material';
+import { Add, Password } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { SearchOutlined } from '@mui/icons-material';
 
@@ -9,11 +9,12 @@ import SidebarChat from './SidebarChat';
 import { useStateValue } from './StateProvider';
 
 import db from "./firebase";
-import { addDoc, collection, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, onSnapshot, query, orderBy, serverTimestamp, where } from "firebase/firestore";
 
 function Sidebar() {
 
     const [rooms, setRooms] = useState([{ name: "Loading...", id: "initial" }]);
+    const [showAllChats, setShowAllChats] = useState(false)
     const [{ user }, dispatch] = useStateValue();
 
     useEffect(() => {
@@ -27,10 +28,11 @@ function Sidebar() {
             })))
         )
         return () => {
-            unsubscribe(); 
+            unsubscribe();
+            setShowAllChats(false)
             // good practice to do as we only need to listen once
         }
-    }, []);
+    }, [showAllChats]);
 
     const createChat = () => {
         // console.log("new chat added")
@@ -43,6 +45,19 @@ function Sidebar() {
             // console.log(roomName, " added");
         }
     };
+
+    const searchChat = (searchInput) => {
+        if (searchInput != '') {
+            const q = query(collection(db, "rooms"), where("name", "==", searchInput))
+            onSnapshot(q, (snapshot) =>
+                setRooms(snapshot.docs.map((doc) => ({
+                    ...doc.data(), id: doc.id
+                })))
+            )
+        } else {
+            setShowAllChats(true)
+        }
+    }
 
     const [seed, setSeed] = useState('');
 
@@ -63,7 +78,11 @@ function Sidebar() {
             <div className='sidebar__search'>
                 <div className='sidebar__searchContainer'>
                     <SearchOutlined />
-                    <input placeholder='Search chat' type='text' />
+                    <input
+                        onChange={(e) => searchChat(e.target.value)}
+                        type='text'
+                        placeholder='Search chat room'
+                    />
                 </div>
             </div>
             <div className='sidebar__chats'>
