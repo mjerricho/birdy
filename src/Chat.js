@@ -60,8 +60,8 @@ function Chat() {
             <div className='chat__header'>
                 <Avatar src={`https://avatars.dicebear.com/api/human/${roomId}.svg`} />
                 <div className='chat__headerInfo'>
-                    <h3>{roomName}</h3>
-                    <p>Last seen {" "} {new Date(
+                    <h3>{(roomName === '') ? 'Pick a room' : roomName}</h3>
+                    <p>Last activity {" "} {new Date(
                         messages[messages.length - 1]?.timestamp?.toDate()
                     ).toUTCString()}</p>
                 </div>

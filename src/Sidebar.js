@@ -68,7 +68,10 @@ function Sidebar() {
     return (
         <div className='sidebar'>
             <div className='sidebar__header'>
-                <Avatar src={user ? user.photoURL : `https://avatars.dicebear.com/api/human/${seed}.svg`} />
+                <div className='sidebar__user'>
+                    <Avatar src={user ? user.photoURL : `https://avatars.dicebear.com/api/human/${seed}.svg`} />
+                    <span>{user.displayName}</span>
+                </div>
                 <div className='sidebar__headerRight'>
                     <IconButton onClick={createChat}>
                         <Add />

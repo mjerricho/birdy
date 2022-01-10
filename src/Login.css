@@ -25,19 +25,22 @@
 .login__text > h1 {
     color: white;
     font-size: 5em;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 
-.login__container >img {
+.login__container > img {
     object-fit: contain;
     height: 100px;
     margin-bottom: 40px;
 }
 
 .login__container > button {
-    margin-top: 20px;
     text-transform: inherit !important;
     background-color: var(--platinum);
     color: black;
     width: 100%;
+}
+
+.login__container > button:hover {
+    color: #4d4d4d;
 }
